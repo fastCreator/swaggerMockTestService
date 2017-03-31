@@ -1,0 +1,29 @@
+{
+  "name": "swagger-mock-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "mock": "node index.js --mock",
+    "test": "node index.js --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastCreator/swaggerMockTestService.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fastCreator/swaggerMockTestService/issues"
+  },
+  "homepage": "https://github.com/fastCreator/swaggerMockTestService#readme",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.17.1",
+    "commander": "^2.9.0",
+    "express": "^4.15.2",
+    "js-yaml": "^3.8.2",
+    "lodash-deep": "^2.0.0",
+    "mockjs": "^1.0.1-beta3"
+  }
+}

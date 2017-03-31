@@ -1,0 +1,1624 @@
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+info:
+  version: "0.0.5"
+  title: OS API
+  description: 基础服务--组织服务接口说明
+
+host: os.ejw.cn
+basePath: /v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+################################################################################
+#                              API Information                                 #
+################################################################################ 
+paths:
+  # This is a path endpoint. Change it.
+  /partners:
+    get:
+      description: 获取合作伙伴列表
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: type
+          in: query
+          description: 合作伙伴类型
+          required: false
+          type: integer
+        -
+          name: status
+          in: query
+          description: 状态
+          required: false
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+          
+      responses:
+        200:
+          description: 合作伙伴列表
+          schema:
+            $ref: '#/definitions/Partners'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner:
+    post:
+      description: 添加合作伙伴信息
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: partner
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/Partner'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+                
+  /partner/{id}:
+    get:
+      description: 获取合作伙伴信息
+      tags: 
+        - 合作伙伴
+      parameters:
+        - 
+          name: id
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 合作伙伴信息
+          schema:
+            $ref: '#/definitions/Partner'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+      
+    put:
+      description: 修改合作伙伴信息
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: id
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: partner
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/Partner'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除合作伙伴
+        注意：如果合作伙伴有关联的部门、角色、员工，则不允许删除
+      tags: 
+        - 合作伙伴
+      parameters:
+        - 
+          name: id
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /partner/{partnerId}/departments:
+    get:
+      description: 获取部门列表
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: parentId
+          in: query
+          description: 上级部门id，用于获取某部门的下级部门
+          required: false
+          type: integer
+        -
+          name: status
+          in: query
+          description: 状态
+          required: false
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+
+      responses:
+        200:
+          description: 部门列表
+          schema:
+            $ref: '#/definitions/Departments'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/department:
+    post:
+      description: 添加部门信息
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: department
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/Department'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+              
+  /partner/{partnerId}/department/{id}:
+    get:
+      description: 获取部门信息
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 部门信息
+          schema:
+            $ref: '#/definitions/Department'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+      
+    put:
+      description: 修改部门信息
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+        -
+          name: department
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/Department'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除部门
+        注意：如果部门有关联的员工，则不允许删除
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+
+  /partner/{partnerId}/roles:
+    get:
+      description: 获取角色列表
+      tags: 
+        - 角色
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+
+      responses:
+        200:
+          description: 角色列表
+          schema:
+            $ref: '#/definitions/Roles'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/role:
+    post:
+      description: 添加角色
+      tags: 
+        - 角色
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: role
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/RoleLinkOperation'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+              
+  /partner/{partnerId}/role/{id}:
+    get:
+      description: 获取角色信息
+      tags: 
+        - 角色
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 角色id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 角色信息
+          schema:
+            $ref: '#/definitions/RoleLinkOperationDesc'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+      
+    put:
+      description: 修改角色信息
+      tags: 
+        - 角色
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 角色id
+          required: true
+          type: integer
+        -
+          name: role
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/RoleLinkOperation'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除角色
+        注意：需要同时删除员工与角色对应关系
+      tags: 
+        - 角色
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 角色id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /partner/{partnerId}/employees:
+    get:
+      description: 获取员工列表
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: status
+          in: query
+          description: 状态，0：离职；1：在职
+          required: false
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+          
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            $ref: '#/definitions/Employees'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/employee:
+    post:
+      description: 添加员工
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: employee
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/EmployeeAll'
+          required: true
+       
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+              
+  /partner/{partnerId}/employee/{id}:
+    get:
+      description: 获取员工信息
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 员工信息
+          schema:
+            $ref: '#/definitions/EmployeeAll'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+      
+    put:
+      description: 修改员工信息
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: employee
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/EmployeeAll'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除员工
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /partner/{partnerId}/department/{departmentId}/link_employees:
+    get:
+      description: 获取部门员工列表
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: departmentId
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+        -
+          name: status
+          in: query
+          description: 状态，1：正常；0：无效；2：锁定
+          required: false
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+
+      responses:
+        200:
+          description: 部门员工列表
+          schema:
+              $ref: '#/definitions/DepartmentLinkEmployees'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/department/{departmentId}/link_employee:
+    post:
+      description: 添加部门员工关系
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: departmentId
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+        -
+          name: linkEmployee
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/DepartmentLinkEmployee'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+              
+  /partner/{partnerId}/department/{departmentId}/link_employee/{id}:
+    put:
+      description: 修改部门员工关系
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: departmentId
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: linkEmployee
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/DepartmentLinkEmployee'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除部门员工关系
+      tags: 
+        - 部门
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: departmentId
+          in: path
+          description: 部门id
+          required: true
+          type: integer
+        - 
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /partner/{partnerId}/employee/{employeeId}/link_roles:
+    get:
+      description: 获取员工角色列表
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: employeeId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+
+      responses:
+        200:
+          description: 员工角色列表
+          schema:
+            $ref: '#/definitions/Roles'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/employee/{employeeId}/link_role:
+    post:
+      description: 添加员工角色关系
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: employeeId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: roleIds
+          in: body
+          description: 角色id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      description: 删除员工角色关系
+      tags: 
+        - 员工
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: employeeId
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+        -
+          name: roleIds
+          in: body
+          description: 角色id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /operations:
+    get:
+      description: 获取操作列表
+      tags: 
+        - 操作
+      parameters:
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+          
+      responses:
+        200:
+          description: 操作列表
+          schema:
+            $ref: '#/definitions/Operations'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /operation:
+    post:
+      description: 添加操作信息
+      tags: 
+        - 操作
+      parameters:
+        -
+          name: operation
+          in: body
+          description: 需要添加的信息
+          schema:
+            $ref: '#/definitions/Operation'
+          required: true
+
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /operation/{id}:
+    get:
+      description: 获取操作信息
+      tags: 
+        - 操作
+      parameters:
+        - 
+          name: id
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 操作信息
+          schema:
+            $ref: '#/definitions/Operation'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+      
+    put:
+      description: 修改操作信息
+      tags: 
+        - 操作
+      parameters:
+        - 
+          name: id
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+        -
+          name: operation
+          in: body
+          description: 需要修改的信息
+          schema:
+            $ref: '#/definitions/Operation'
+          required: true
+
+      responses:
+        200:
+          description: 修改成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+    delete:
+      description: 删除操作
+      tags: 
+        - 操作
+      parameters:
+        - 
+          name: id
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+  
+  /operation/{operationId}/link_apis:
+    get:
+      description: 获取操作的Api列表
+      tags: 
+        - 操作
+      parameters:
+        -
+          name: operationId
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: Api列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Api'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /operation/{operationId}/link_api:
+    post:
+      description: 添加操作与Api对应关系
+      tags: 
+        - 操作
+      parameters:
+        -
+          name: operationId
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+
+        -
+          name: apiIds
+          in: body
+          description: Api id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      description: 删除操作与Api对应关系
+      tags: 
+        - 操作
+      parameters:
+        -
+          name: operationId
+          in: path
+          description: 操作id
+          required: true
+          type: integer
+        -
+          name: apiIds
+          in: body
+          description: Api id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'          
+            
+  /partner/{partnerId}/link_operations:
+    get:
+      description: 获取合作伙伴的操作列表
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: pageNo
+          in: query
+          description: 当前页码
+          required: false
+          type: integer
+        -
+          name: pageSize
+          in: query
+          description: 每页记录数
+          required: false
+          type: integer
+          
+      responses:
+        200:
+          description: 操作列表
+          schema:
+            $ref: '#/definitions/Operations'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+    
+  /partner/{partnerId}/link_operation:
+    post:
+      description: 添加合作伙伴与操作对应关系
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+
+        -
+          name: operationIds
+          in: body
+          description: 操作id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+              
+      responses:
+        200:
+          description: 添加成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      description: 删除合作伙伴与操作对应关系
+      tags: 
+        - 合作伙伴
+      parameters:
+        -
+          name: partnerId
+          in: path
+          description: 合作伙伴id
+          required: true
+          type: integer
+        -
+          name: operationIds
+          in: body
+          description: 操作id列表
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        200:
+          description: 删除成功
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'                    
+  
+  /user/{userId}/employees:
+    get:
+      description: 根据用户id获取员工列表
+      tags: 
+        - 用户
+      parameters:
+        -
+          name: userId
+          in: path
+          description: 用户id
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: 员工列表
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /user/{userId}/employee/{id}/apis:
+    get:
+      description: 根据员工id往redis写入权限api信息
+      tags: 
+        - 用户
+      parameters:
+        -
+          name: userId
+          in: path
+          description: 用户id
+          required: true
+          type: integer
+        -
+          name: id
+          in: path
+          description: 员工id
+          required: true
+          type: integer
+       
+      responses:
+        200:
+          description: 成功（需要在redis中写入员工操作api权限信息）
+        default:
+          description: 错误码
+          schema:
+            $ref: '#/definitions/Error'
+            
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+
+  Partner:
+    type: object
+    description: 合作伙伴（组织）
+    required:
+      - partnerId
+    properties:
+      partnerId:
+        type: integer
+        description: 合作伙伴唯一id
+      partnerType:
+        type: string
+        description: 合作伙伴类型，第一位：平台；第二位：服务商；第三位：供应商
+      partnerNo:
+        type: string
+        description: 合作伙伴编号
+      partnerName:
+        type: string
+        description: 合作伙伴名称
+      status:
+        type: integer
+        description: 状态，1：正常；0：停用
+  
+  Partners:
+    type: object
+    description: 合作伙伴列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Partner'
+        
+  Department:
+    type: object
+    description: 部门
+    required:
+      - departmentId
+    properties:
+      departmentId:
+        type: integer
+        description: 部门唯一id
+      departmentName:
+        type: string
+        description: 部门名称
+      departmentNo:
+        type: string
+        description: 部门编号.
+      parentId:
+        type: string
+        description: 上级部门id
+      partnerId:
+        type: integer
+        description: 所属合作伙伴id
+      status:
+        type: integer
+        description: 状态，1：正常；0：停用
+  
+  Departments:
+    type: object
+    description: 部门列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Department'
+          
+  Role:
+    type: object
+    description: 角色
+    required:
+      - roleId
+    properties:
+      roleId:
+        type: integer
+        description: 角色唯一id
+      roleName:
+        type: string
+        description: 角色名称
+      partnerId:
+        type: integer
+        description: 所属合作伙伴id
+  
+  Roles:
+    type: object
+    description: 角色列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Role'
+  
+  RoleLinkOperation:
+    type: object
+    description: 角色以及其操作权限信息
+    properties:
+      role:
+        $ref: '#/definitions/Role'
+      operationIds:
+        description: 操作权限id列表
+        type: array
+        items:
+          type: string
+          
+  RoleLinkOperationDesc:
+    type: object
+    description: 角色以及其操作权限详细信息
+    properties:
+      role:
+        $ref: '#/definitions/Role'
+      operations:
+        description: 操作列表
+        type: array
+        items:
+          $ref: '#/definitions/Operation'
+          
+  Operation:
+    type: object
+    description: 操作
+    required:
+      - operationId
+    properties:
+      operationId:
+        type: integer
+        description: 操作唯一id
+      operationName:
+        type: string
+        description: 操作名称
+      operationTip:
+        type: string
+        description: 操作描述
+      appName:
+        type: string
+        description: 应用名称
+      isBase:
+        type: integer
+        description: 是否基础操作
+  
+  Operations:
+    type: object
+    description: 操作列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Operation'
+          
+  Employee:
+    type: object
+    description: 员工基本信息
+    required:
+      - employeeId
+    properties:
+      employeeId:
+        type: integer
+        description: 员工唯一id
+      employeeName:
+        type: string
+        description: 员工姓名
+      partnerId:
+        type: integer
+        description: 所属合作伙伴id
+      userId:
+        type: string
+        description: 所属用户id
+      jobNo:
+        type: string
+        description: 员工工号
+      jobName:
+        type: string
+        description: 员工岗位
+      sex:
+        type: integer
+        description: 性别，0：未知，1：男，2：女
+      email:
+        type: string
+        description: 邮箱
+      phone:
+        type: string
+        description: 联系电话
+      status:
+        type: integer
+        description: 状态，0，离职；1：在职
+        
+  EmployeeExt:
+    type: object
+    description: 员工扩展信息
+    required:
+      - employeeId
+    properties:
+      employeeId:
+        type: integer
+        description: 员工唯一id
+      birth:
+        type: string
+        description: 出生日期
+      nation:
+        type: string
+        description: 民族
+      area:
+        type: string
+        description: 区域
+      postcode:
+        type: string
+        description: 邮编
+      address:
+        type: string
+        description: 地址
+      idcard:
+        type: string
+        description: 身份证号码
+      education:
+        type: string
+        description: 文化程度
+      emergencyContact:
+        type: string
+        description: 紧急联系人
+      emergencyPhone:
+        type: string
+        description: 紧急联系人电话
+      bankName:
+        type: string
+        description: 开户行
+      bankAccount:
+        type: string
+        description: 银行卡号
+      entryDate:
+        type: string
+        description: 入职日期
+      turnDate:
+        type: string
+        description: 转正日期
+      quitDate:
+        type: string
+        description: 离职日期
+  
+  EmployeeAll:
+    type: object
+    description: 员工所有信息（基本信息+扩展信息）
+    properties:
+      employee:
+        $ref: '#/definitions/Employee'
+      employeeExt:
+        $ref: '#/definitions/EmployeeExt'
+  
+  Employees:
+    type: object
+    description: 员工列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Employee'
+          
+  DepartmentLinkEmployee:
+    type: object
+    description: 部门员工对应关系
+    required:
+      - departmentId
+      - employeeId
+      - status
+    properties:
+      departmentId:
+        type: integer
+        description: 部门唯一id
+      employeeId:
+        type: string
+        description: 员工唯一id
+      status:
+        type: integer
+        description: 状态，1：正常；0：无效；2：锁定
+      
+  DepartmentLinkEmployeeDesc:
+    type: object
+    description: 部门员工对应关系详细
+    properties:
+      departmentId:
+        type: integer
+        description: 部门唯一id
+      employeeId:
+        type: string
+        description: 员工唯一id
+      status:
+        type: integer
+        description: 状态，1：正常；0：无效；2：锁定
+      employee:
+        $ref: '#/definitions/Employee'
+        
+  DepartmentLinkEmployees:
+    type: object
+    description: 部门员工对应关系列表
+    properties:
+      page:
+        $ref: '#/definitions/Page'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/DepartmentLinkEmployeeDesc'
+          
+  Api:
+    type: object
+    description: Api 信息
+    required:
+      - apiId
+    properties:
+      apiId:
+        type: integer
+        description: Api唯一id
+
+  Page:
+    type: object
+    description: 分页信息
+    properties:
+      pageNo:
+        type: integer
+        description: 当前页码
+      nextPage:
+        type: integer
+        description: 下一页页码
+      prePage:
+        type: integer
+        description: 上一页页码
+      totalPages:
+        type: integer
+        description: 总页数
+      totalCount:
+        type: integer
+        description: 总记录数
+      firstPage:
+        type: boolean
+        description: 是否为首页
+      lastPage:
+        type: boolean
+        description: 是否为尾页
+      hasPrePage:
+        type: boolean
+        description: 是否有上一页
+      hasNextPage:
+        type: boolean
+        description: 是否有下一页
+      startRow:
+        type: integer
+        description: 当前页起始行
+      endRow:
+        type: integer
+        description: 当前页结束行
+        
+  Error:
+    type: object
+    description: 错误Bean
+    required:
+      - error
+      - code
+      - message
+    properties:
+      error:
+        type: boolean
+        description: 错误类型
+      code:
+        type: string
+        description: 错误码
+      message:
+        type: string
+        description: 错误描述

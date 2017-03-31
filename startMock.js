@@ -1,11 +1,11 @@
-const swagger2MockTest = require('./swagger2MockTest');
-parseSwagger('D:\\My Documents\\桌面\\zyx-frame\\docs\\swagger', function (json) {
-  startMock(json)
-});
-async function parseSwagger(path, cb) {
-  const json = await swagger2MockTest(path);
-  cb(json);
-}
+// const swagger2MockTest = require('./swagger2MockTest');
+// parseSwagger('D:\\My Documents\\桌面\\zyx-frame\\docs\\swagger', function (json) {
+//   startMock(json)
+// });
+// async function parseSwagger(path, cb) {
+//   const json = await swagger2MockTest(path);
+//   cb(json);
+// }
 
 
 const express = require('express');

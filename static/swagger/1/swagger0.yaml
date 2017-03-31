@@ -1,0 +1,1262 @@
+
+---
+swagger: "2.0"
+info:
+  description: "基础服务--组织服务接口说明"
+  version: "0.0.1"
+  title: "OS API"
+host: "os.ejw.cn"
+basePath: "/v0"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /partners:
+    get:
+      tags:
+      - "合作伙伴"
+      description: "获取合作伙伴列表"
+      operationId: "partnersGET"
+      parameters:
+      - name: "type"
+        in: "query"
+        description: "合作伙伴类型"
+        required: false
+        type: "integer"
+      - name: "status"
+        in: "query"
+        description: "状态"
+        required: false
+        type: "integer"
+      responses:
+        200:
+          description: "合作伙伴列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Partner"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner:
+    post:
+      tags:
+      - "合作伙伴"
+      description: "添加合作伙伴信息"
+      operationId: "partnerPOST"
+      parameters:
+      - in: "body"
+        name: "partner"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Partner"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{id}:
+    get:
+      tags:
+      - "合作伙伴"
+      description: "获取合作伙伴信息"
+      operationId: "partnerIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "合作伙伴信息"
+          schema:
+            $ref: "#/definitions/Partner"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    put:
+      tags:
+      - "合作伙伴"
+      description: "修改合作伙伴信息"
+      operationId: "partnerIdPUT"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "partner"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Partner"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "合作伙伴"
+      description: "删除合作伙伴"
+      operationId: "partnerIdDELETE"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/departments:
+    get:
+      tags:
+      - "部门"
+      description: "获取部门列表"
+      operationId: "partnerPartner_idDepartmentsGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id，0为获取所有合作伙伴部门"
+        required: true
+        type: "integer"
+      - name: "parent_id"
+        in: "query"
+        description: "上级部门id，用于获取某部门的下级部门"
+        required: false
+        type: "integer"
+      - name: "status"
+        in: "query"
+        description: "状态"
+        required: false
+        type: "integer"
+      responses:
+        200:
+          description: "部门列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Department"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/department:
+    post:
+      tags:
+      - "部门"
+      description: "添加部门信息"
+      operationId: "partnerPartner_idDepartmentPOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "department"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Department"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/department/{id}:
+    get:
+      tags:
+      - "部门"
+      description: "获取部门信息"
+      operationId: "partnerPartner_idDepartmentIdGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "部门信息"
+          schema:
+            $ref: "#/definitions/Department"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    put:
+      tags:
+      - "部门"
+      description: "修改部门信息"
+      operationId: "partnerPartner_idDepartmentIdPUT"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "department"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Department"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "部门"
+      description: "删除部门"
+      operationId: "partnerPartner_idDepartmentIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/roles:
+    get:
+      tags:
+      - "角色"
+      description: "获取角色列表"
+      operationId: "partnerPartner_idRolesGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id，0为获取所有合作伙伴角色"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "角色列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Role"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/role:
+    post:
+      tags:
+      - "角色"
+      description: "添加角色"
+      operationId: "partnerPartner_idRolePOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "role"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Role"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/role/{id}:
+    get:
+      tags:
+      - "角色"
+      description: "获取角色信息"
+      operationId: "partnerPartner_idRoleIdGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "角色信息"
+          schema:
+            $ref: "#/definitions/Role"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    put:
+      tags:
+      - "角色"
+      description: "修改角色信息"
+      operationId: "partnerPartner_idRoleIdPUT"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "role"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Role"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "角色"
+      description: "删除角色"
+      operationId: "partnerPartner_idRoleIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employees:
+    get:
+      tags:
+      - "员工"
+      description: "获取员工列表"
+      operationId: "partnerPartner_idEmployeesGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id，0为获取所有合作伙伴员工"
+        required: true
+        type: "integer"
+      - name: "status"
+        in: "query"
+        description: "状态，0：离职；1：在职"
+        required: false
+        type: "integer"
+      responses:
+        200:
+          description: "员工列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Employee"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employee:
+    post:
+      tags:
+      - "员工"
+      description: "添加员工"
+      operationId: "partnerPartner_idEmployeePOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "employee"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/EmployeeAll"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employee/{id}:
+    get:
+      tags:
+      - "员工"
+      description: "获取员工信息"
+      operationId: "partnerPartner_idEmployeeIdGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "员工信息"
+          schema:
+            $ref: "#/definitions/EmployeeAll"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    put:
+      tags:
+      - "员工"
+      description: "修改员工信息"
+      operationId: "partnerPartner_idEmployeeIdPUT"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "role"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/EmployeeAll"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "员工"
+      description: "删除员工"
+      operationId: "partnerPartner_idEmployeeIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/department/{department_id}/employees:
+    get:
+      tags:
+      - "部门"
+      description: "获取部门员工列表"
+      operationId: "partnerPartner_idDepartmentDepartment_idEmployeesGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "department_id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      - name: "status"
+        in: "query"
+        description: "状态，1：正常；0：无效；2：锁定"
+        required: false
+        type: "integer"
+      responses:
+        200:
+          description: "部门员工列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DepartmentEmployee"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/department/{department_id}/employee:
+    post:
+      tags:
+      - "部门"
+      description: "添加部门员工关系"
+      operationId: "partnerPartner_idDepartmentDepartment_idEmployeePOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "department_id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "department"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/DepartmentEmployee"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/department/{department_id}/employee/{id}:
+    put:
+      tags:
+      - "部门"
+      description: "修改部门员工关系"
+      operationId: "partnerPartner_idDepartmentDepartment_idEmployeeIdPUT"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "department_id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "department"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/DepartmentEmployee"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "部门"
+      description: "删除部门员工关系"
+      operationId: "partnerPartner_idDepartmentDepartment_idEmployeeIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "department_id"
+        in: "path"
+        description: "部门id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/role/{role_id}/operations:
+    get:
+      tags:
+      - "角色"
+      description: "获取角色操作列表"
+      operationId: "partnerPartner_idRoleRole_idOperationsGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "role_id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "角色操作列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RoleOperation"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/role/{role_id}/operation:
+    post:
+      tags:
+      - "角色"
+      description: "添加角色操作关系"
+      operationId: "partnerPartner_idRoleRole_idOperationPOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "role_id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "role"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/RoleOperation"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/role/{role_id}/operation/{id}:
+    delete:
+      tags:
+      - "角色"
+      description: "删除角色操作关系"
+      operationId: "partnerPartner_idRoleRole_idOperationIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "role_id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "操作id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employee/{employee_id}/roles:
+    get:
+      tags:
+      - "员工"
+      description: "获取员工角色列表"
+      operationId: "partnerPartner_idEmployeeEmployee_idRolesGET"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "employee_id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "员工角色列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/EmployeeRole"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employee/{employee_id}/role:
+    post:
+      tags:
+      - "员工"
+      description: "添加员工角色关系"
+      operationId: "partnerPartner_idEmployeeEmployee_idRolePOST"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "employee_id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "role"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/EmployeeRole"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /partner/{partner_id}/employee/{employee_id}/role/{id}:
+    delete:
+      tags:
+      - "员工"
+      description: "删除员工角色关系"
+      operationId: "partnerPartner_idEmployeeEmployee_idRoleIdDELETE"
+      parameters:
+      - name: "partner_id"
+        in: "path"
+        description: "合作伙伴id"
+        required: true
+        type: "integer"
+      - name: "employee_id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "角色id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /user/{user_id}/employees:
+    get:
+      tags:
+      - "用户"
+      description: "根据用户id获取员工列表"
+      operationId: "userUser_idEmployeesGET"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "用户id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "员工列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Employee"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /user/{user_id}/employee/{id}/login:
+    post:
+      tags:
+      - "用户"
+      description: "登录"
+      operationId: "userUser_idEmployeeIdLoginPOST"
+      parameters:
+      - name: "user_id"
+        in: "path"
+        description: "用户id"
+        required: true
+        type: "integer"
+      - name: "id"
+        in: "path"
+        description: "员工id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "成功（需要在redis中写入员工操作权限信息）"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /operations:
+    get:
+      tags:
+      - "操作"
+      description: "获取操作列表"
+      operationId: "operationsGET"
+      parameters: []
+      responses:
+        200:
+          description: "操作列表"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Operation"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /operation:
+    post:
+      tags:
+      - "操作"
+      description: "添加操作信息"
+      operationId: "operationPOST"
+      parameters:
+      - in: "body"
+        name: "operation"
+        description: "需要添加的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Operation"
+      responses:
+        200:
+          description: "添加成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+  /operation/{id}:
+    get:
+      tags:
+      - "操作"
+      description: "获取操作信息"
+      operationId: "operationIdGET"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "操作id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "操作信息"
+          schema:
+            $ref: "#/definitions/Operation"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    put:
+      tags:
+      - "操作"
+      description: "修改操作信息"
+      operationId: "operationIdPUT"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "操作id"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "operation"
+        description: "需要修改的信息"
+        required: true
+        schema:
+          $ref: "#/definitions/Operation"
+      responses:
+        200:
+          description: "修改成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+    delete:
+      tags:
+      - "操作"
+      description: "删除操作"
+      operationId: "operationIdDELETE"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "操作id"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "删除成功"
+        default:
+          description: "错误码"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: ""
+definitions:
+  Partner:
+    type: "object"
+    required:
+    - "partner_id"
+    properties:
+      partner_id:
+        type: "integer"
+        description: "合作伙伴唯一id"
+      partner_type:
+        type: "integer"
+        description: "合作伙伴类型，第一位：平台；第二位：服务商；第三位：供应商"
+      partner_no:
+        type: "string"
+        description: "合作伙伴编号"
+      partner_name:
+        type: "string"
+        description: "合作伙伴名称"
+      status:
+        type: "integer"
+        description: "状态，1：正常；0：停用"
+    description: "合作伙伴（组织）"
+  Department:
+    type: "object"
+    required:
+    - "department_id"
+    properties:
+      department_id:
+        type: "integer"
+        description: "部门唯一id"
+      department_name:
+        type: "string"
+        description: "部门名称"
+      department_no:
+        type: "string"
+        description: "部门编号."
+      parent_id:
+        type: "string"
+        description: "上级部门id"
+      partner_id:
+        type: "integer"
+        description: "所属合作伙伴id"
+      status:
+        type: "integer"
+        description: "状态，1：正常；0：停用"
+    description: "部门"
+  Role:
+    type: "object"
+    required:
+    - "role_id"
+    properties:
+      role_id:
+        type: "integer"
+        description: "角色唯一id"
+      role_name:
+        type: "string"
+        description: "角色名称"
+      partner_id:
+        type: "integer"
+        description: "所属合作伙伴id"
+    description: "角色"
+  Operation:
+    type: "object"
+    required:
+    - "operation_id"
+    properties:
+      operation_id:
+        type: "integer"
+        description: "操作唯一id"
+      operation_name:
+        type: "string"
+        description: "操作名称"
+      operation_tip:
+        type: "string"
+        description: "操作描述"
+      apis:
+        type: "array"
+        description: "api列表"
+        items:
+          $ref: "#/definitions/Api"
+    description: "操作"
+  Api:
+    type: "object"
+    required:
+    - "api_id"
+    properties:
+      api_id:
+        type: "integer"
+        description: "Api唯一id"
+      api_name:
+        type: "string"
+        description: "Api因子"
+      api_tip:
+        type: "string"
+        description: "Api描述"
+    description: "Api信息"
+  Employee:
+    type: "object"
+    required:
+    - "employee_id"
+    properties:
+      employee_id:
+        type: "integer"
+        description: "员工唯一id"
+      employee_name:
+        type: "string"
+        description: "员工姓名"
+      partner_id:
+        type: "integer"
+        description: "所属合作伙伴id"
+      user_id:
+        type: "string"
+        description: "所属用户id"
+      job_no:
+        type: "string"
+        description: "员工工号"
+      job_name:
+        type: "string"
+        description: "员工岗位"
+      sex:
+        type: "integer"
+        description: "性别，0：未知，1：男，2：女"
+      email:
+        type: "string"
+        description: "邮箱"
+      phone:
+        type: "string"
+        description: "联系电话"
+      status:
+        type: "integer"
+        description: "状态，0，离职；1：在职"
+    description: "员工基本信息"
+  EmployeeExt:
+    type: "object"
+    required:
+    - "employee_id"
+    properties:
+      employee_id:
+        type: "integer"
+        description: "员工唯一id"
+      birth:
+        type: "string"
+        description: "出生日期"
+      nation:
+        type: "string"
+        description: "民族"
+      area:
+        type: "string"
+        description: "区域"
+      postcode:
+        type: "string"
+        description: "邮编"
+      address:
+        type: "string"
+        description: "地址"
+      idcard:
+        type: "string"
+        description: "身份证号码"
+      education:
+        type: "string"
+        description: "文化程度"
+      emergency_contact:
+        type: "string"
+        description: "紧急联系人"
+      emergency_phone:
+        type: "string"
+        description: "紧急联系人电话"
+      bank_name:
+        type: "string"
+        description: "开户行"
+      bank_account:
+        type: "string"
+        description: "银行卡号"
+      entry_date:
+        type: "string"
+        description: "入职日期"
+      turn_date:
+        type: "string"
+        description: "转正日期"
+      quit_date:
+        type: "string"
+        description: "离职日期"
+    description: "员工扩展信息"
+  EmployeeAll:
+    type: "object"
+    properties:
+      employee:
+        $ref: "#/definitions/Employee"
+      employee_ext:
+        $ref: "#/definitions/EmployeeExt"
+    description: "员工所有信息（基本信息+扩展信息）"
+  DepartmentEmployee:
+    type: "object"
+    required:
+    - "department_id"
+    - "employee_id"
+    - "status"
+    properties:
+      department_id:
+        type: "integer"
+        description: "部门唯一id"
+      employee_id:
+        type: "string"
+        description: "员工唯一id"
+      employee:
+        $ref: "#/definitions/Employee"
+      status:
+        type: "integer"
+        description: "状态，1：正常；0：无效；2：锁定"
+    description: "部门员工对应关系"
+  RoleOperation:
+    type: "object"
+    required:
+    - "operation_id"
+    - "role_id"
+    properties:
+      role_id:
+        type: "integer"
+        description: "角色唯一id"
+      operation_id:
+        type: "integer"
+        description: "操作唯一id"
+      operation:
+        $ref: "#/definitions/Operation"
+    description: "角色操作对应关系"
+  EmployeeRole:
+    type: "object"
+    required:
+    - "employee_id"
+    - "role_id"
+    properties:
+      employee_id:
+        type: "integer"
+        description: "员工唯一id"
+      role_id:
+        type: "integer"
+        description: "角色唯一id"
+      operation:
+        $ref: "#/definitions/Role"
+    description: "员工角色对应关系"
+  Error:
+    type: "object"
+    required:
+    - "code"
+    - "error"
+    - "message"
+    properties:
+      error:
+        type: "boolean"
+        description: "错误类型"
+      code:
+        type: "string"
+        description: "错误码"
+      message:
+        type: "string"
+        description: "错误描述"
+    description: "错误Bean"

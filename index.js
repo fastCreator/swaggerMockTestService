@@ -37,12 +37,15 @@ function buildCli() {
     });
   } else {
     rl.question('请输入swagger文档路径:', (answer) => {
-      parseSwagger(answer, function (json) {
-        startMock(json)
+      rl.question('请服务端口号:', (port) => {
+        parseSwagger(answer, function (json) {
+          startMock(json, port)
+          rl.close();
+        });
       });
-       rl.close();
+
     });
-   
+
   }
 }
 
