@@ -43,9 +43,7 @@ function buildCli() {
           rl.close();
         });
       });
-
     });
-
   }
 }
 
